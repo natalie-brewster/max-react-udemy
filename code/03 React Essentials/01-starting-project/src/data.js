@@ -38,7 +38,7 @@ export const EXAMPLES = {
     code: `
 function Welcome() {
   return <h1>Hello, World!</h1>;
-}`,
+}`
   },
   jsx: {
     title: 'JSX',
