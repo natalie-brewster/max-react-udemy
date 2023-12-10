@@ -4,39 +4,24 @@ import InputGroup from "./components/InputGroup";
 import UserInput from "./components/UserInput";
 import InvestmentTable from "./components/InvestmentTable";
 
+const INPUTS = {
+  initialInvestment: 1000,
+  annualInvestment: 1200,
+  expectedReturn: 6,
+  duration: 2,
+};
 
-const INPUTS = [
-  {
-    label: "Initial Investment",
-    value: 1000,
-  },
-  {
-    label: "Anual Investment",
-    value: 1200,
-  },
-  {
-    label: "Expected Return",
-    value: 6,
-  },
-  {
-    label: "Duration",
-    value: 10,
-  },
-];
+function addSpaceBeforeUppercase(str) {
+  return str.replace(/([a-z])([A-Z])/g, "$1 $2");
+}
 
 function App() {
   const [inputs, setInputs] = useState(INPUTS);
 
-  function handleInputChange(curInput) {
-    const { label, value } = curInput;
-    const updatedInputs = inputs.map(function(input) {
-      if (label === input.label) {
-        return {...input, value: value};
-      } else {
-        return input
-      }
-    });
-    console.log(updatedInputs)
+  function handleInputChange(label, value) {
+
+    const updatedInputs = { ...inputs, [label]: value };
+    console.log(updatedInputs);
     setInputs(updatedInputs);
   }
 
@@ -45,13 +30,13 @@ function App() {
       <Header />
       <div id="user-input">
         <InputGroup className="input-group">
-          {INPUTS.map((input) => (
+          {Object.entries(INPUTS).map(([label, value]) => (
             <UserInput
-              key={input.label}
-              initialInput={input.value}
+              key={label}
+              initialInput={value}
               onInputChange={handleInputChange}
             >
-              {input.label}
+              {addSpaceBeforeUppercase(label)}
             </UserInput>
           ))}
         </InputGroup>
